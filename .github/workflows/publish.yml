@@ -27,4 +27,8 @@ jobs:
         ls
     - name: Push
       run: |
-        dotnet nuget push TestNugetPackageId.TestPackagePublish.${VERSION}.nupkg --source ${PACKAGE_SOURCE} --api-key ${{ secrets.NUGET_API_KEY }}
+        if [ -n "${{ secrets.NUGET_API_KEY }}" ]; then
+          dotnet nuget push "TestNugetPackageId.TestPackagePublish.${VERSION}.nupkg" --source "${PACKAGE_SOURCE}" --api-key "${{ secrets.NUGET_API_KEY }}"
+        else
+          dotnet nuget push "TestNugetPackageId.TestPackagePublish.${VERSION}.nupkg" --source "${PACKAGE_SOURCE}" --api-key "${{ secrets.GITHUB_TOKEN }}"
+        fi
