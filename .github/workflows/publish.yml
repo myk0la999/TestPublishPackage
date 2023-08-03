@@ -4,7 +4,7 @@ on:
     - 'v[0-9]+\.[0-9]+\.[0-9]+-alph[0-9][0-9][0-9].*'
     
 env:
-  PACKAGE_SOURCE: ${{ vars.PACKAGE_SOURCE || 'nonValidPackageSource' }}
+  PACKAGE_SOURCE: ${{ vars.PACKAGE_SOURCE }}
     
 jobs:
   publish:
@@ -28,7 +28,7 @@ jobs:
     - name: Push
       run: |
         if [ -n "${{ secrets.NUGET_API_KEY }}" ]; then
-          dotnet nuget push "TestNugetPackageId.TestPackagePublish.${VERSION}.nupkg" --source "${PACKAGE_SOURCE}" --api-key "${{ secrets.NUGET_API_KEY }}"
+          dotnet nuget push "TestNugetPackageId.TestPackagePublish.${VERSION}.nupkg" --source https://api.nuget.org/v3/index.json --api-key "${{ secrets.NUGET_API_KEY }}"
         else
-          dotnet nuget push "TestNugetPackageId.TestPackagePublish.${VERSION}.nupkg" --source "${PACKAGE_SOURCE}" --api-key "${{ secrets.GITHUB_TOKEN }}"
+          dotnet nuget push "TestNugetPackageId.TestPackagePublish.${VERSION}.nupkg" --source ${PACKAGE_SOURCE} --api-key "${{ secrets.GITHUB_TOKEN }}"
         fi
