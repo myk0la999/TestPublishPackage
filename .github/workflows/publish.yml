@@ -1,10 +1,10 @@
-env:
-  PACKAGE_SOURCE: ${{ vars.PACKAGE_SOURCE || 'nonValidPackageSource' }}
-
 on:
   push:
     tags:
-    - "v[0-9]+\.[0-9]+\.[0-9]+-alph[0-9][0-9][0-9].*"
+    - 'v[0-9]+\.[0-9]+\.[0-9]+-alph[0-9][0-9][0-9].*'
+    
+env:
+  PACKAGE_SOURCE: ${{ vars.PACKAGE_SOURCE || 'nonValidPackageSource' }}
     
 jobs:
   publish:
