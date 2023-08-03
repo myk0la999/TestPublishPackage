@@ -1,11 +1,10 @@
 env:
-  TAG_TEMPLATE: ${{ vars.TAG_TEMPLATE || 'v[0-9]+.[0-9]+.[0-9]+-alph[0-9][0-9][0-9]' }}
   PACKAGE_SOURCE: ${{ vars.PACKAGE_SOURCE || 'nonValidPackageSource' }}
 
 on:
   push:
     tags:
-    - "${TAG_TEMPLATE}"
+    - "v[0-9]+\.[0-9]+\.[0-9]+-alph[0-9][0-9][0-9].*"
     
 jobs:
   publish:
